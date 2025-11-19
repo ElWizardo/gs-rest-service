@@ -44,7 +44,7 @@ jobs:
           name: gs-rest-service-jar
           path: target/*.jar
 
-      - name: Notify Slack: build finished
+      - name: Notify Slack build finished
         if: ${{ secrets.SLACK_CI_WEBHOOK }}
         run: |
           STATUS="SUCCESS"
@@ -103,7 +103,7 @@ jobs:
             fi
           SSH_EOF
 
-      - name: Notify Slack: deployed
+      - name: Notify Slack deployed
         if: ${{ secrets.SLACK_CI_WEBHOOK }}
         run: |
           curl -s -X POST -H 'Content-type: application/json' \
