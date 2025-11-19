@@ -126,7 +126,7 @@ jobs:
               echo "SERVER_USER or SERVER_HOST not set, skipping deployment"
             fi
 
-      # Slack: Deployment notification
+      # Slack: Deployment notification1
       - name: Notify Slack deployed
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_CI_WEBHOOK }}
