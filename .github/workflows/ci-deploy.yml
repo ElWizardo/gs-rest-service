@@ -7,14 +7,9 @@ on:
       - master
       - develop
 
-env:
-  ARTIFACT_NAME: gs-rest-service.jar
-
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      jar-path: ${{ steps.archive.outputs.artifact-path || '' }}
     steps:
       # Checkout code
       - name: Checkout
@@ -46,7 +41,6 @@ jobs:
 
       # Archive artifact
       - name: Archive built jar
-        id: archive
         uses: actions/upload-artifact@v4
         with:
           name: gs-rest-service-jar
@@ -70,7 +64,6 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    if: ${{ always() }}
     steps:
       # Download artifact
       - name: Download artifact
@@ -96,7 +89,6 @@ jobs:
         env:
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SERVER_HOST: ${{ secrets.SERVER_HOST }}
-          REMOTE_PATH: ${{ secrets.REMOTE_PATH || '/home/${{ secrets.SERVER_USER }}/gs-rest' }}
         run: |
           scp ./deploy_artifact/*.jar "${SERVER_USER}@${SERVER_HOST}:~/app.jar"
           ssh "${SERVER_USER}@${SERVER_HOST}" <<'SSH_EOF'
@@ -115,7 +107,6 @@ jobs:
               fi
               docker run -d --name gs-rest-service -p 777:777 --restart unless-stopped gs-rest-service:latest
             else
-              # Fallback: run jar directly
               pkill -f 'app.jar' || true
               nohup java -jar ~/app.jar --server.port=777 > ~/app.log 2>&1 &
             fi
