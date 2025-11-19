@@ -111,7 +111,7 @@ jobs:
                 COPY app.jar /app/app.jar
                 EXPOSE 777
                 ENTRYPOINT ["sh", "-c", "exec java -jar /app/app.jar --server.port=777"]
-               DOCK
+          DOCK
                 docker build -t gs-rest-service:latest -f Dockerfile.deploy .
                 if [ "$(docker ps -aq -f name=gs-rest-service)" != "" ]; then
                   docker rm -f gs-rest-service || true
