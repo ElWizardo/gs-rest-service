@@ -111,13 +111,13 @@ jobs:
                 COPY app.jar /app/app.jar
                 EXPOSE 777
                 ENTRYPOINT ["sh", "-c", "exec java -jar /app/app.jar --server.port=777"]
-              DOCK
+               DOCK
                 docker build -t gs-rest-service:latest -f Dockerfile.deploy .
                 if [ "$(docker ps -aq -f name=gs-rest-service)" != "" ]; then
                   docker rm -f gs-rest-service || true
                 fi
                 docker run -d --name gs-rest-service -p 777:777 --restart unless-stopped gs-rest-service:latest
-              else
+                else
                 pkill -f 'app.jar' || true
                 nohup java -jar ~/app.jar --server.port=777 > ~/app.log 2>&1 &
               fi
