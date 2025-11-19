@@ -121,10 +121,10 @@ jobs:
                 pkill -f 'app.jar' || true
                 nohup java -jar ~/app.jar --server.port=777 > ~/app.log 2>&1 &
               fi
-              SSH_EOF
-          else
-            echo "SERVER_USER or SERVER_HOST not set, skipping deployment"
-          fi
+          SSH_EOF
+            else
+              echo "SERVER_USER or SERVER_HOST not set, skipping deployment"
+            fi
 
       # Slack: Deployment notification
       - name: Notify Slack deployed
