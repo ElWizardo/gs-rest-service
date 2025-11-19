@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v4
 
       # Slack: Build Started
-      - name: Notify Slack: build started
+      - name: Notify Slack build started
         if: ${{ secrets.SLACK_CI_WEBHOOK }}
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_CI_WEBHOOK }}
@@ -53,7 +53,7 @@ jobs:
           path: target/*.jar
 
       # Slack: Build Finished
-      - name: Notify Slack: build finished
+      - name: Notify Slack build finished
         if: ${{ secrets.SLACK_CI_WEBHOOK }}
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_CI_WEBHOOK }}
@@ -122,7 +122,7 @@ jobs:
           SSH_EOF
 
       # Slack: Deployment notification
-      - name: Notify Slack: deployed
+      - name: Notify Slack deployed
         if: ${{ secrets.SLACK_CI_WEBHOOK }}
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_CI_WEBHOOK }}
