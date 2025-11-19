@@ -19,12 +19,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Notify Slack: build started
+      - name: Notify Slack build started
         if: ${{ secrets.SLACK_CI_WEBHOOK }}
         run: |
+          REF=${GITHUB_REF}
+          REPO=${GITHUB_REPOSITORY}
+          SHA=${GITHUB_SHA}
           curl -s -X POST -H 'Content-type: application/json' \
-            --data "{\"text\":\"CI: Build started for \`${{ github.ref }}\` (<${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}|commit>)\"}" \
-            ${{ secrets.SLACK_CI_WEBHOOK }}
+          --data "{\"text\":\"CI: Build started for branch ${REF} (<https://github.com/${REPO}/commit/${SHA}|commit>)\"}" \
+          ${{ secrets.SLACK_CI_WEBHOOK }}
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
