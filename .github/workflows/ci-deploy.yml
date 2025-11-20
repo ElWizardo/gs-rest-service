@@ -57,7 +57,7 @@ jobs:
         run: |
           if [ -n "$SLACK_WEBHOOK" ]; then
             STATUS="SUCCESS"
-            if [ "${{ job.status }}" != "Success" ]; then STATUS="FAILED"; fi
+            if [ "${{ job.status }}" != "success" ]; then STATUS="FAILED"; fi
             REF=${GITHUB_REF}
             REPO=${GITHUB_REPOSITORY}
             SHA=${GITHUB_SHA}
